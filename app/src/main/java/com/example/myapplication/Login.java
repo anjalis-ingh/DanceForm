@@ -28,24 +28,27 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
+import com.google.firebase.auth.OAuthProvider;
 
 import java.util.Arrays;
 
 public class Login extends AppCompatActivity {
 
-    // variables
     EditText emailAddress, userPassword;
     Button signinBtn, signupBtn;
     String emailValidation = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    ImageView showPassBtn, googleBtn, fbBtn;
-    CallbackManager callbackManager;
+    ImageView showPassBtn, googleBtn, fbBtn, twitterBtn;
 
+    CallbackManager callbackManager;
+    OAuthProvider.Builder provider;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
 
@@ -57,27 +60,6 @@ public class Login extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_login_in);
 
-        callbackManager = CallbackManager.Factory.create();
-
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onError(@NonNull FacebookException e) {
-
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        sendToHomePage();
-                    }
-                });
-
-        // controls
         emailAddress = findViewById(R.id.email_address);
         userPassword = findViewById(R.id.user_password);
         signinBtn = findViewById(R.id.sign_in_btn);
@@ -86,17 +68,41 @@ public class Login extends AppCompatActivity {
 
         googleBtn = findViewById(R.id.google);
         fbBtn = findViewById(R.id.facebook);
+        twitterBtn = findViewById(R.id.twitter);
 
         mAuth = FirebaseAuth.getInstance();
 
         // Facebook Sign In
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onError(@NonNull FacebookException e) { }
+
+                    @Override
+                    public void onCancel() { }
+
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        sendToHomePage();
+                    }
+                });
+
         fbBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LoginManager.getInstance().logInWithReadPermissions(Login.this, Arrays.asList("public_profile"));
             }
         });
+        
+        // Twitter Sign In
+        provider = OAuthProvider.newBuilder("twitter.com");
+        twitterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { twitterAuth(); }
+        });
 
+        // Google Sign In
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken(getString(R.string.default_web_client_id)).requestEmail().build();
         gsc = GoogleSignIn.getClient(this,gso);
 
@@ -105,7 +111,6 @@ public class Login extends AppCompatActivity {
             sendToHomePage();
         }
 
-        // Google Sign In
         googleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,7 +127,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        // Sign In
+        // Regular Sign In
         signinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +147,44 @@ public class Login extends AppCompatActivity {
 
     }
 
+    // Twitter Auth
+    private void twitterAuth() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        Task<AuthResult> pendingResultTask = firebaseAuth.getPendingAuthResult();
+        if (pendingResultTask != null) {
+            pendingResultTask
+                    .addOnSuccessListener(
+                            new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) { }
+                            })
+                    .addOnFailureListener(
+                            new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+        } else {
+            firebaseAuth
+                    .startActivityForSignInWithProvider(Login.this, provider.build())
+                    .addOnSuccessListener(
+                            new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) { }
+                            })
+                    .addOnFailureListener(
+                            new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT);
+                                }
+                            });
+        }
+    }
+
+    // Enable Hide/Show Eye Icon
     private void showHidePass() {
         if (userPassword.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
              // hide password

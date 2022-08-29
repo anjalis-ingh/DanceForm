@@ -9,9 +9,9 @@
 
     <ImageView
         android:id="@+id/name_and_circle"
-        android:layout_width="263dp"
-        android:layout_height="90dp"
-        android:layout_marginTop="40dp"
+        android:layout_width="250dp"
+        android:layout_height="79dp"
+        android:layout_marginTop="68dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -53,6 +53,40 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <EditText
+        android:id="@+id/user_password"
+        android:layout_width="388dp"
+        android:layout_height="77dp"
+        android:layout_marginTop="340dp"
+        android:background="@drawable/text_bar"
+        android:drawableLeft="@drawable/lock"
+        android:drawablePadding="15dp"
+        android:ems="10"
+        android:fontFamily="@font/poppins"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:paddingLeft="30dp"
+        android:paddingBottom="5dp"
+        android:textColor="#2F2E41"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/show_pass_btn"
+        android:layout_width="21dp"
+        android:layout_height="29dp"
+        android:layout_marginTop="360dp"
+        android:minWidth="48dp"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.935"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/show_password" />
+
     <Button
         android:id="@+id/sign_in_btn"
         android:layout_width="368dp"
@@ -72,19 +106,6 @@
         app:layout_constraintHorizontal_bias="0.48"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/show_pass_btn"
-        android:layout_width="21dp"
-        android:layout_height="29dp"
-        android:layout_marginTop="360dp"
-        android:minWidth="48dp"
-        android:minHeight="48dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.935"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/show_password" />
 
     <ImageView
         android:id="@+id/gray_lines"
@@ -161,7 +182,7 @@
         android:id="@+id/sign_up_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="668dp"
+        android:layout_marginTop="667dp"
         android:background="@android:color/transparent"
         android:fontFamily="@font/poppins_bold"
         android:text="Sign Up"
@@ -170,27 +191,6 @@
         android:textSize="13dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.771"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/user_password"
-        android:layout_width="388dp"
-        android:layout_height="77dp"
-        android:layout_marginTop="340dp"
-        android:background="@drawable/text_bar"
-        android:drawableLeft="@drawable/lock"
-        android:drawablePadding="15dp"
-        android:ems="10"
-        android:fontFamily="@font/poppins"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:paddingLeft="30dp"
-        android:paddingBottom="5dp"
-        android:textColor="#2F2E41"
-        android:textSize="12dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

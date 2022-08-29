@@ -15,23 +15,36 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.OAuthProvider;
+
+import java.util.Arrays;
 
 public class SignUp extends AppCompatActivity {
 
     EditText userName, emailAddress, userPassword, confirmPass;
     Button createBtn;
     String emailValidation = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-    ImageView showPassBtn, showPassBtn2, googleBtn;
+    ImageView showPassBtn, showPassBtn2, backBtn;
+    ImageView googleBtn, facebookBtn, twitterBtn;
 
+    CallbackManager callbackManager;
+    OAuthProvider.Builder provider;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
 
@@ -51,10 +64,45 @@ public class SignUp extends AppCompatActivity {
         createBtn = findViewById(R.id.create_btn);
         showPassBtn = findViewById(R.id.show_pass_btn);
         showPassBtn2 = findViewById(R.id.show_pass_btn2);
+        backBtn = findViewById(R.id.back_btn);
+
         googleBtn = findViewById(R.id.google);
+        facebookBtn = findViewById(R.id.facebook);
+        twitterBtn = findViewById(R.id.twitter);
 
         mAuth = FirebaseAuth.getInstance();
 
+        // Twitter Sign In
+        provider = OAuthProvider.newBuilder("twitter.com");
+        twitterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { twitterAuth(); }
+        });
+
+        // Facebook Sign In
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onError(@NonNull FacebookException e) { }
+
+                    @Override
+                    public void onCancel() { }
+
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        sendToHomePage();
+                    }
+                });
+
+        facebookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginManager.getInstance().logInWithReadPermissions(SignUp.this, Arrays.asList("public_profile"));
+            }
+        });
+
+        // Google Sign Up
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this,gso);
 
@@ -63,7 +111,6 @@ public class SignUp extends AppCompatActivity {
             sendToHomePage();
         }
 
-        // Google Sign In
         googleBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,8 +143,19 @@ public class SignUp extends AppCompatActivity {
                 createAcctValidation();
             }
         });
+
+        // Go back to Login Page
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SignUp.this, Login.class);
+                startActivity(intent);
+                finish();
+            }
+        });
     }
 
+    // Show/Hide Eye Icon
     private void showHidePass() {
         if (userPassword.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())){
             // hide password
@@ -196,6 +254,43 @@ public class SignUp extends AppCompatActivity {
                     }
                 }
             });
+        }
+    }
+
+    // Twitter Auth
+    private void twitterAuth() {
+        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+
+        Task<AuthResult> pendingResultTask = firebaseAuth.getPendingAuthResult();
+        if (pendingResultTask != null) {
+            pendingResultTask
+                    .addOnSuccessListener(
+                            new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) { }
+                            })
+                    .addOnFailureListener(
+                            new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+        } else {
+            firebaseAuth
+                    .startActivityForSignInWithProvider(SignUp.this, provider.build())
+                    .addOnSuccessListener(
+                            new OnSuccessListener<AuthResult>() {
+                                @Override
+                                public void onSuccess(AuthResult authResult) { }
+                            })
+                    .addOnFailureListener(
+                            new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT);
+                                }
+                            });
         }
     }
 

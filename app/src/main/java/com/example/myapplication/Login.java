@@ -228,27 +228,27 @@ public class Login extends AppCompatActivity {
         String email = emailAddress.getText().toString().trim();
         String password = userPassword.getText().toString().trim();
 
-        if(!email.matches(emailValidation)) {
+        if (!email.matches(emailValidation)) {
             emailAddress.setError("Please enter a valid email address");
             emailAddress.requestFocus();
             return;
         }
-        else if(email.isEmpty()) {
+        else if (email.isEmpty()) {
             emailAddress.setError("This field cannot be blank");
             emailAddress.requestFocus();
             return;
         }
-        else if(password.isEmpty()) {
+        else if (password.isEmpty()) {
             userPassword.setError("This field cannot be blank");
             userPassword.requestFocus();
             return;
         }
-        else if(password.length() < 6) {
+        else if (password.length() < 6) {
             userPassword.setError("Password must be more than 6 characters long");
             userPassword.requestFocus();
             return;
         }
-        else{
+        else {
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {

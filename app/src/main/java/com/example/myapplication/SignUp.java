@@ -214,22 +214,22 @@ public class SignUp extends AppCompatActivity {
         String password = userPassword.getText().toString().trim();
         String confirmPassword = confirmPass.getText().toString().trim();
 
-        if(!email.matches(emailValidation)) {
+        if (!email.matches(emailValidation)) {
             emailAddress.setError("Please enter a valid email address");
             emailAddress.requestFocus();
             return;
         }
-        else if(email.isEmpty()) {
+        else if (email.isEmpty()) {
             emailAddress.setError("This field cannot be blank");
             emailAddress.requestFocus();
             return;
         }
-        else if(password.isEmpty()) {
+        else if (password.isEmpty()) {
             userPassword.setError("This field cannot be blank");
             userPassword.requestFocus();
             return;
         }
-        else if(password.length() < 6) {
+        else if (password.length() < 6) {
             userPassword.setError("Password must be more than 6 characters long");
             userPassword.requestFocus();
             return;
@@ -237,19 +237,19 @@ public class SignUp extends AppCompatActivity {
         else if (!password.equals(confirmPassword)) {
             Toast.makeText(SignUp.this, "Password not matching", Toast.LENGTH_SHORT).show();
         }
-        else if(name.isEmpty()) {
+        else if (name.isEmpty()) {
             userName.setError("This field cannot be blank");
             userName.requestFocus();
         }
-        else{
+        else {
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()){
                         Toast.makeText(SignUp.this, "User has been signed up!", Toast.LENGTH_LONG).show();
                         sendToLogin();
                     }
-                    else{
+                    else {
                         Toast.makeText(SignUp.this, "User sign up failed, try again.", Toast.LENGTH_LONG).show();
                     }
                 }

@@ -25,6 +25,7 @@ public class HomePage extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_home_page);
 
+        createBtn = findViewById(R.id.plus_btn);
         tabLayout = findViewById(R.id.home_tab);
         viewPager2 = findViewById(R.id.viewpager);
         viewPagerAdapter = new ViewPagerAdapter(this);
@@ -57,12 +58,12 @@ public class HomePage extends AppCompatActivity {
 
         // Create Button
         createBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
+           @Override
             public void onClick(View v) {
-                Intent intent = new Intent(HomePage.this, SettingUpChoreo.class);
+               Intent intent = new Intent(HomePage.this, SettingUpChoreo.class);
                 startActivity(intent);
                 finish();
             }
-        });
+       });
     }
 }

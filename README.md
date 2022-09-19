@@ -12,7 +12,7 @@ of preset formation examples for the user to choose from.
 <img width="720" alt="starting screens" src="https://user-images.githubusercontent.com/96373072/185771629-e0dd3348-3a1f-4fdf-a4cc-76b12af5c1b7.png">
 <img width="953" alt="main page screens" src="https://user-images.githubusercontent.com/96373072/185771643-c5f36194-d22c-4281-80ed-389b1f829b2c.png">
 
-# Setting Up Choregraphy 
+# Setting Up Choreography 
 When the user clicks on the Create/Plus button, they can from there set up a new choreography by creating a name, inputting the number of dancers, and 
 selecting either a custom or preset starting formation. If the user chooses preset, they can access the reference guide of preset formation examples for 
 any number of dancers as well as their favorite presets. 

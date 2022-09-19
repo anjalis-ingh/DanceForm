@@ -252,11 +252,11 @@ public class Login extends AppCompatActivity {
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Toast.makeText(Login.this, "User logged in!", Toast.LENGTH_LONG).show();
                         sendToHomePage();
                     }
-                    else{
+                    else {
                         Toast.makeText(Login.this, "User log in failed. Please check your credentials", Toast.LENGTH_LONG).show();
                     }
                 }
@@ -268,7 +268,7 @@ public class Login extends AppCompatActivity {
     private void sendToHomePage() {
         Intent intent = new Intent(Login.this, HomePage.class);
         startActivity(intent);
-        // finish();
+        finish();
     }
 
 }

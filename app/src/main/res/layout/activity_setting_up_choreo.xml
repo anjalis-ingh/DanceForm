@@ -42,7 +42,7 @@
         android:id="@+id/setting_up_choreo_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="64dp"
         android:fontFamily="@font/poppins_bold"
         android:shadowColor="#5B67CA"

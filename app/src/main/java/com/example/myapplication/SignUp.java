@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -245,9 +247,9 @@ public class SignUp extends AppCompatActivity {
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         Toast.makeText(SignUp.this, "User has been signed up!", Toast.LENGTH_LONG).show();
-                        sendToLogin();
+                        sendToLogin(name);
                     }
                     else {
                         Toast.makeText(SignUp.this, "User sign up failed, try again.", Toast.LENGTH_LONG).show();
@@ -295,10 +297,15 @@ public class SignUp extends AppCompatActivity {
     }
 
     // Successful Account Creation
-    private void sendToLogin() {
+    private void sendToLogin(String name) {
+        // save name
+        SharedPreferences prefs = this.getSharedPreferences("com.example.application", Context.MODE_PRIVATE);
+        prefs.edit().putString("name",name).apply();
+
         Intent intent = new Intent(SignUp.this, Login.class);
         startActivity(intent);
         finish();
+
     }
 
     // Successful Login

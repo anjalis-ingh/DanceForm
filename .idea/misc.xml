@@ -6,8 +6,8 @@
         <entry key="app/src/main/res/drawable/ic_logo.xml" value="0.3245" />
         <entry key="app/src/main/res/drawable/twitter.xml" value="0.34" />
         <entry key="app/src/main/res/layout/activity_formation_creator.xml" value="0.12696941612604262" />
-        <entry key="app/src/main/res/layout/activity_home_page.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/activity_login_in.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_home_page.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_login_in.xml" value="0.5" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_setting_up_choreo.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.75" />

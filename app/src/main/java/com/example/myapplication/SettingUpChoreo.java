@@ -2,8 +2,12 @@ package com.example.myapplication;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.content.ContextCompat;
+import androidx.core.widget.CompoundButtonCompat;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -19,10 +23,13 @@ import com.google.firebase.auth.AuthResult;
 
 public class SettingUpChoreo extends AppCompatActivity {
 
-    Button createBtn, presetBtn;
+    Button createBtn, presetBtn, customBtn;
     ImageView backBtn;
     EditText choreoName, numberDancers;
     Boolean isClickedDummy; // global after the declaration of your class
+    int check = 1;
+    int check2 = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,18 +44,44 @@ public class SettingUpChoreo extends AppCompatActivity {
         choreoName = findViewById(R.id.choreo_name_input);
         numberDancers = findViewById(R.id.number_dancers);
         presetBtn = findViewById(R.id.preset_btn);
-
+        customBtn = findViewById(R.id.custom_btn);
 
         // Create Button
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) { createChoreography(); }
+            public void onClick(View v) { createChoreographyValidation(); }
         });
 
-        // Create Button
+        // Preset Button
         presetBtn.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) { buttonClicked(presetBtn, isClickedDummy); }
+            public void onClick(View v) {
+                if (check == 1) {
+                    buttonClicked(presetBtn, 1);
+                    check = 0;
+                }
+                else {
+                    buttonClicked(presetBtn, 0);
+                    check = 1;
+                }
+            }
+        });
+
+        // Custom Button
+        customBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                if (check2 == 1) {
+                    buttonClicked(customBtn, 1);
+                    check2 = 0;
+                }
+                else {
+                    buttonClicked(customBtn, 0);
+                    check2 = 1;
+                }
+            }
         });
 
         // Go back to Home Page
@@ -63,7 +96,7 @@ public class SettingUpChoreo extends AppCompatActivity {
     }
 
     // Information Validation
-    private void createChoreography() {
+    private void createChoreographyValidation() {
         String name = choreoName.getText().toString().trim();
         String number = numberDancers.getText().toString().trim();
 
@@ -82,6 +115,10 @@ public class SettingUpChoreo extends AppCompatActivity {
             numberDancers.requestFocus();
             return;
         }
+        else if (check == 0 && check2 == 0) {
+            Toast.makeText(this, "You cannot select both Preset and Custom. Please choose only one.", Toast.LENGTH_SHORT).show();
+            return;
+        }
         else {
             Intent intent = new Intent(SettingUpChoreo.this, FormationCreator.class);
             startActivity(intent);
@@ -89,17 +126,16 @@ public class SettingUpChoreo extends AppCompatActivity {
         }
     }
 
-    private void buttonClicked(Button button, final Boolean isClicked) {
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                if(isClickedDummy) {
-                    v.setBackgroundColor(Color.parseColor("#F6F6F6"));
-                    isClickedDummy = false;
-                } else {
-                    v.setBackgroundColor(Color.parseColor("#6C63FF"));
-                    isClickedDummy = true;
-                }
-            }
-        });
+    // Change Button color and text when clicked
+    private void buttonClicked(Button button, int check) {
+
+        if (check == 1) {
+            button.setBackgroundTintList(AppCompatResources.getColorStateList(button.getContext(), R.color.mainpurple));
+            button.setTextColor(Color.WHITE);
+        }
+        else {
+            button.setBackgroundTintList(AppCompatResources.getColorStateList(button.getContext(), R.color.lightgraywhite));
+            button.setTextColor(Color.BLACK);
+        }
     }
 }

@@ -2,6 +2,8 @@
 DanceForm is an app that provides tools to choreographers and dance teams to create and visualize choreography formations and transitions in an interactive 
 2D stage formation creator.  
 
+Built using Java, Android Studio, and AdobeXD
+
 # Registration and Home Page 
 The user can sign-up and login-in into the app by creating a new account or through external social media accounts such as Google, Facebook, and Twitter. 
 Once the registration process is complete, the user will be directed to the home page where they can create their first choreography by clicking on the 

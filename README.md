@@ -29,15 +29,16 @@ Create/Plus button. The home page displays the most recent choreography set's in
 bottom for the user to access and edit. The Presets tab allows the user to input the desired number of dancers for a formation and then generates a variety 
 of preset formation examples for the user to choose from. 
 
-<img width="720" alt="starting screens" src="https://user-images.githubusercontent.com/96373072/185771629-e0dd3348-3a1f-4fdf-a4cc-76b12af5c1b7.png">
-<img width="953" alt="main page screens" src="https://user-images.githubusercontent.com/96373072/185771643-c5f36194-d22c-4281-80ed-389b1f829b2c.png">
+<img width="720" alt="Screen Shot 2023-07-10 at 5 57 00 AM" src="https://github.com/anjalis-ingh/DanceForm/assets/96373072/570a98ea-dcbf-469e-8393-12973d329bf8">
+<img width="953" alt="Screen Shot 2023-07-10 at 5 58 55 AM" src="https://github.com/anjalis-ingh/DanceForm/assets/96373072/687e2604-b7f5-438f-a52a-4d3c6de06782">
+
 
 # Setting Up Choreography 
 When the user clicks on the Create/Plus button, they can from there set up a new choreography by creating a name, inputting the number of dancers, and 
 selecting either a custom or preset starting formation. If the user chooses preset, they can access the reference guide of preset formation examples for 
 any number of dancers as well as their favorite presets. 
 
-<img width="963" alt="setting up choreo" src="https://user-images.githubusercontent.com/96373072/185771719-84491bd0-fd46-49cf-ad42-4dfed9e4080e.png">
+<img width="963" alt="Screen Shot 2023-07-10 at 6 01 45 AM" src="https://github.com/anjalis-ingh/DanceForm/assets/96373072/f3568f8f-7378-4ad6-a1ad-c3ae35699912">
 <img width="515" alt="setting up choreo pt 2" src="https://user-images.githubusercontent.com/96373072/185771720-5d4946f8-7663-4a9e-8693-bd52beda1eca.png">
 
 
@@ -50,5 +51,3 @@ The top right button is the setting menu, where the user can access other specif
 - Delete choreography 
 
 <img width="534" alt="choreo settings" src="https://user-images.githubusercontent.com/96373072/185771732-0bbe37a1-d89b-48dd-a141-e894281e1bdd.png">
-
-
